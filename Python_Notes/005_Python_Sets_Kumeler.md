@@ -138,8 +138,9 @@ Kümeden **rastgele** bir elemanı siler ve sildiği elemanı döndürür. Küme
 my_set = {10, 20, 30}
 silinen = my_set.pop()
 print(f"Silinen eleman: {silinen}")
+#Output: Silinen eleman: 10
 print(f"Kümenin yeni hali: {my_set}")
-
+#Output: Kümenin yeni hali: {20, 30}
 ```
 
 ### 📌 .clear()
