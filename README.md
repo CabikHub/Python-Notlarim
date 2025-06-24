@@ -2,7 +2,7 @@
 
 ![Python](https://img.shields.io/badge/Python-3.11%2B-blue?logo=python)
 ![Challenge](https://img.shields.io/badge/Challenge-100_Days_of_Code-orange)
-![Status](https://img.shields.io/badge/Status-Devam_Ediyor-brightgreen)
+![Status](https://img.shields.io/badge/Status-It_Continues...-brightgreen)
 
 
 ---
@@ -34,15 +34,7 @@ Bu yolculuk boyunca kullandığım temel araçlar ve teknolojiler:
 
 ## 🚀 Ders Günlüğü
 
-Bu tablo, kamp boyunca her gün eklenecek notlarla güncellenecektir.
-
-| Gün | Konu | Dosya Linki |
-|:---:|:---|:---|
-| 001 | Sayılar ve Matematiksel İşlemler | [Notlara Göz At](./ders_notlari/001_Sayilar_ve_Islemler.ipynb) |
-| 002 | Stringler (Metinler) ve Metotları | *(Henüz Eklenmedi)* |
-| 003 | Veri Tipleri ve Değişkenler | *(Henüz Eklenmedi)* |
-| ... | ... | ... |
-| 100 | Final Projesi | *(Henüz Eklenmedi)* |
+DAHA SONRA GÜNCELLENECEKTİR.
 
 ---
 
@@ -51,5 +43,5 @@ Bu tablo, kamp boyunca her gün eklenecek notlarla güncellenecektir.
 Bu serüveni takip etmek veya benzer bir yolda olanlarla tanışmak beni çok mutlu eder.
 
 -   **LinkedIn:** [LinkedIn Profilim](https://www.linkedin.com/in/emirhan-%C3%A7ab%C4%B1k-652594370/)
--   **GitHub:** [cabikhub](https://github.com/cabikhub)
+-   **GitHub:** [cabikhub](https://github.com/Cabikhub)
 
