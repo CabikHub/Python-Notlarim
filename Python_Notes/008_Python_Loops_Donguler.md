@@ -194,7 +194,7 @@ while p < 20:
 
 ```
 
-![image.png](image.png)
+![image.png](https://github.com/CabikHub/Python-Notlarim/blob/main/Python_Notes/Gorseller/image.png?raw=true)
 
 ### 🔁 Liste Elemanı Kontrolü
 
