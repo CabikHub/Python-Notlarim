@@ -1,4 +1,4 @@
-# 🐍 100 Günlük Python Serüveni
+# 🐍 Python Serüveni
 
 ![Python](https://img.shields.io/badge/Python-3.11%2B-blue?logo=python)
 ![Challenge](https://img.shields.io/badge/Challenge-100_Days_of_Code-orange)
@@ -9,11 +9,11 @@
 
 ### 📖 Proje Hakkında
 
-Bu repo, kendime meydan okuduğum ve 100 gün boyunca her gün Python çalıştığım kişisel bootcamp serüvenimi belgelemektedir. Bu süreçte öğrendiğim konularla ilgili aldığım notlar, yazdığım kodlar, alıştırmalar ve geliştirdiğim projeler burada yer alacaktır.
+Bu repo, Python çalıştığım kişisel bootcamp serüvenimi belgelemektedir. Bu süreçte öğrendiğim konularla ilgili aldığım notlar, yazdığım kodlar, alıştırmalar ve geliştirdiğim projeler burada yer alacaktır.
 
 ### 🎯 Amacım
 
-Bu 100 günlük maratonun sonunda ulaşmayı hedeflediğim temel amaçlar:
+Bu  maratonun sonunda ulaşmayı hedeflediğim temel amaçlar:
 
 -   Python temellerini ve ileri düzey konuları sağlam bir şekilde öğrenmek.
 -   Veri yapıları ve algoritma mantığını geliştirmek.
