@@ -1,1 +1,479 @@
+---
 
+# ✨ Python'da Fonksiyonlar, Lambda ve Kapsam (Scope)
+
+Bu not, Python'da kod tekrarını önleyen fonksiyon yapılarını, ileri düzey argüman yönetimini (`args/kwargs`), fonksiyonel programlama araçlarını (`map/filter/lambda`) ve değişkenlerin yaşam alanlarını (`Scope`) ele almaktadır.
+
+---
+
+### 1️⃣ Fonksiyon Tanımlama ve `return` Kavramı
+
+Fonksiyonlar, belirli bir görevi yerine getiren kod bloklarıdır. `def` anahtar kelimesi ile tanımlanır. En önemli ayrım, fonksiyonun sadece ekrana yazı mı yazacağı (`print`) yoksa bir değer mi üreteceği (`return`) konusudur.
+
+### ✅ Kolay Örnek: Basit Tanımlama
+
+Parametre almayan ve sadece işlem yapan temel fonksiyon yapısı.
+
+```python
+def hello_python():
+    print("Hello Python")
+
+hello_python()
+# Çıktı:
+# Hello Python
+
+```
+
+### 🟡 Orta Örnek: Varsayılan (Default) Parametreler
+
+Eğer fonksiyon çağrılırken argüman gönderilmezse, varsayılan değeri kullanır.
+
+```python
+def hello_surname(surname="Çabık"):
+    print(f"Hello, Mr. {surname}")
+
+hello_surname("Yılmaz") # Parametre ile
+hello_surname()         # Parametre olmadan
+# Çıktı:
+# Hello, Mr. Yılmaz
+# Hello, Mr. Çabık
+
+```
+
+### 🔴 Zor Örnek: `print` vs `return` Ayrımı
+
+`print` sadece gösterir, `return` ise değeri hafızada tutar ve değişkene atamanızı sağlar. `return` kullanmazsanız sonuç `NoneType` döner.
+
+```python
+# Sadece print eden (Değer Döndürmeyen) Fonksiyon
+def toplama_print(a, b):
+    print(a + b)
+
+x = toplama_print(5, 10)
+print(f"x'in değeri: {x}") # x boştur (None)
+# Çıktı:
+# 15
+# x'in değeri: None
+
+# Return eden (Değer Döndüren) Fonksiyon
+def toplama_return(a, b):
+    return a + b
+
+y = toplama_return(5, 10)
+print(f"y'nin değeri: {y}") # y değeri tutar
+# Çıktı:
+# y'nin değeri: 15
+
+```
+
+---
+
+### 2️⃣ Esnek Argümanlar: `args` ve `kwargs`
+
+Fonksiyona kaç tane parametre geleceğini bilmediğimiz durumlarda kullanılır.
+
+### ✅ Kolay Örnek: `args` ile Sınırsız Sayı Toplama
+
+- `args`, gelen parametreleri bir demet (tuple) olarak tutar.
+
+```python
+def args_sum(*args):
+    # args burada (10, 20, 30, ...) şeklinde bir tuple'dır
+    return sum(args)
+
+print(args_sum(10, 20, 30, 40))
+# Çıktı: 100
+
+```
+
+### 🟡 Orta Örnek: `kwargs` ile Anahtar Kelimeli Argümanlar
+
+- `kwargs`, gelen parametreleri bir sözlük (dictionary) olarak tutar (`key=value` formatı).
+
+```python
+def kwargs_example(**kwargs):
+    print(kwargs)
+
+kwargs_example(apple=100, banana=150, melon=200)
+# Çıktı: {'apple': 100, 'banana': 150, 'melon': 200}
+
+```
+
+### 🔴 Zor Örnek: `kwargs` İçinde Mantıksal Kontrol
+
+Sözlük metotlarını kullanarak gelen veriyi kontrol edebiliriz.
+
+```python
+def stok_kontrol(**kwargs):
+    if "apple" in kwargs:
+        print(f"Elma stoğu: {kwargs['apple']}")
+    else:
+        print("Elma bulunamadı, üzgünüm.")
+
+stok_kontrol(banana=45, grape=20)
+# Çıktı:
+# Elma bulunamadı, üzgünüm.
+
+```
+
+---
+
+### 3️⃣ `map()`, `filter()` ve `lambda`
+
+Bu fonksiyonlar, döngü kurmadan listeler üzerinde hızlı işlem yapmayı sağlar. `lambda`, tek satırlık isimsiz fonksiyonlardır.
+
+### ✅ Kolay Örnek: `lambda` Kullanımı
+
+Klasik fonksiyon yerine tek satırda işlem tanımlama.
+
+```python
+# Klasik yöntem:
+# def multiply(num): return num * 3
+
+# Lambda yöntemi:
+multiply_lambda = lambda num: num * 3
+print(multiply_lambda(20))
+# Çıktı: 60
+
+```
+
+### 🟡 Orta Örnek: `map()` ile Listeyi Dönüştürme
+
+Bir listenin tüm elemanlarına aynı işlemi uygular.
+
+```python
+my_list = [10, 20, 30]
+# Her sayıyı 4'e böl
+result = list(map(lambda num: num / 4, my_list))
+print(result)
+# Çıktı: [2.5, 5.0, 7.5]
+
+```
+
+### 🔴 Zor Örnek: `filter()` ile Veri Ayıklama
+
+Sadece koşulu sağlayan (`True` dönen) elemanları alır.
+
+```python
+name_list = ["Emirhan", "Emirhan Çabık", "Ahmet", "Mehmet"]
+
+# İçinde "Emirhan" geçenleri filtrele
+def check_name(name):
+    return "Emirhan" in name
+
+filtered_names = list(filter(check_name, name_list))
+print(filtered_names)
+# Çıktı: ['Emirhan', 'Emirhan Çabık']
+
+```
+
+---
+
+### 4️⃣ Kapsam (Scope) ve LEGB Kuralı
+
+Python'da değişkenlerin nerede geçerli olduğunu belirleyen kurallardır: **L**ocal (Yerel) -> **E**nclosing (Kapsayan) -> **G**lobal (Genel) -> **B**uilt-in (Gömülü).
+
+### ✅ Kolay Örnek: Global vs Local
+
+Fonksiyon içindeki değişken dışarıyı etkilemez (Local Scope).
+
+```python
+x = 20 # Global
+def multiply(num):
+    x = 5 # Local (Sadece burası için geçerli)
+    return num * x
+
+print(multiply(10)) # Local x (5) ile çarpar
+print(x)            # Global x (20) değişmedi
+# Çıktı:
+# 50
+# 20
+
+```
+
+### 🟡 Orta Örnek: LEGB Hiyerarşisi
+
+Python değişkeni ararken içeriden dışarıya doğru bakar.
+
+```python
+my_string = "Global String"
+
+def outer():
+    my_string = "Enclosing String"
+
+    def inner():
+        my_string = "Local String"
+        print(my_string) # En yakındakini (Local) bulur
+
+    inner()
+
+outer()
+# Çıktı: Local String
+
+```
+
+### 🔴 Zor Örnek: `global` Anahtar Kelimesi
+
+Fonksiyon içinden global bir değişkeni kalıcı olarak değiştirmek için kullanılır.
+
+```python
+y = 10
+
+def change_global():
+    global y  # Dışarıdaki y'yi içeri al ve değiştirme yetkisi ver
+    y = 5
+    print(f"İçerideki y: {y}")
+
+change_global()
+print(f"Dışarıdaki y: {y}") # Artık kalıcı olarak değişti
+# Çıktı:
+# İçerideki y: 5
+# Dışarıdaki y: 5
+
+```
+
+> 💡 Önemli İpucu: global anahtar kelimesini kullanmak genellikle önerilmez çünkü büyük projelerde değişken takibini zorlaştırır. Mümkünse return kullanarak değeri güncelleyin.
+> 
+
+---
+
+# FOR ENG
+
+---
+
+# ✨ Functions, Lambda, and Scope in Python
+
+This note covers function structures that prevent code repetition in Python, advanced argument management (`args/kwargs`), functional programming tools (`map/filter/lambda`), and variable lifecycles (`Scope`).
+
+---
+
+### 1️⃣ Defining Functions and the `return` Concept
+
+Functions are blocks of code that perform a specific task. They are defined with the `def` keyword. The most important distinction is whether the function just writes to the screen (`print`) or produces a value (`return`).
+
+### ✅ Easy Example: Basic Definition
+
+A basic function structure that takes no parameters and just performs an action.
+
+```python
+def hello_python():
+    print("Hello Python")
+
+hello_python()
+# Output:
+# Hello Python
+
+```
+
+### 🟡 Medium Example: Default Parameters
+
+If no argument is sent when calling the function, it uses the default value.
+
+```python
+def hello_surname(surname="Çabık"):
+    print(f"Hello, Mr. {surname}")
+
+hello_surname("Doe") # With parameter
+hello_surname()      # Without parameter
+# Output:
+# Hello, Mr. Doe
+# Hello, Mr. Çabık
+
+```
+
+### 🔴 Hard Example: `print` vs `return` Distinction
+
+`print` only displays, `return` holds the value in memory and allows you to assign it to a variable. If you don't use `return`, the result is `NoneType`.
+
+```python
+# Function that only prints (Does not return value)
+def sum_print(a, b):
+    print(a + b)
+
+x = sum_print(5, 10)
+print(f"Value of x: {x}") # x is empty (None)
+# Output:
+# 15
+# Value of x: None
+
+# Function that returns (Returns value)
+def sum_return(a, b):
+    return a + b
+
+y = sum_return(5, 10)
+print(f"Value of y: {y}") # y holds the value
+# Output:
+# Value of y: 15
+
+```
+
+---
+
+### 2️⃣ Flexible Arguments: `args` and `kwargs`
+
+Used when we don't know how many parameters will be passed to the function.
+
+### ✅ Easy Example: Summing Unlimited Numbers with `args`
+
+- `args` holds the incoming parameters as a tuple.
+
+```python
+def args_sum(*args):
+    # args is a tuple like (10, 20, 30, ...) here
+    return sum(args)
+
+print(args_sum(10, 20, 30, 40))
+# Output: 100
+
+```
+
+### 🟡 Medium Example: Keyword Arguments with `kwargs`
+
+- `kwargs` holds the incoming parameters as a dictionary (`key=value` format).
+
+```python
+def kwargs_example(**kwargs):
+    print(kwargs)
+
+kwargs_example(apple=100, banana=150, melon=200)
+# Output: {'apple': 100, 'banana': 150, 'melon': 200}
+
+```
+
+### 🔴 Hard Example: Logical Check Inside `kwargs`
+
+We can check the incoming data using dictionary methods.
+
+```python
+def stock_check(**kwargs):
+    if "apple" in kwargs:
+        print(f"Apple stock: {kwargs['apple']}")
+    else:
+        print("Apple not found, sorry.")
+
+stock_check(banana=45, grape=20)
+# Output:
+# Apple not found, sorry.
+
+```
+
+---
+
+### 3️⃣ `map()`, `filter()`, and `lambda`
+
+These functions allow fast processing on lists without creating loops. `lambda` represents single-line anonymous functions.
+
+### ✅ Easy Example: Using `lambda`
+
+Defining an operation in a single line instead of a classic function.
+
+```python
+# Classic method:
+# def multiply(num): return num * 3
+
+# Lambda method:
+multiply_lambda = lambda num: num * 3
+print(multiply_lambda(20))
+# Output: 60
+
+```
+
+### 🟡 Medium Example: Transforming a List with `map()`
+
+Applies the same operation to all elements of a list.
+
+```python
+my_list = [10, 20, 30]
+# Divide each number by 4
+result = list(map(lambda num: num / 4, my_list))
+print(result)
+# Output: [2.5, 5.0, 7.5]
+
+```
+
+### 🔴 Hard Example: Extracting Data with `filter()`
+
+Only takes elements that satisfy the condition (return `True`).
+
+```python
+name_list = ["Emirhan", "Emirhan Çabık", "Ahmet", "Mehmet"]
+
+# Filter those containing "Emirhan"
+def check_name(name):
+    return "Emirhan" in name
+
+filtered_names = list(filter(check_name, name_list))
+print(filtered_names)
+# Output: ['Emirhan', 'Emirhan Çabık']
+
+```
+
+---
+
+### 4️⃣ Scope and LEGB Rule
+
+Rules that determine where variables are valid in Python: **L**ocal -> **E**nclosing -> **G**lobal -> **B**uilt-in.
+
+### ✅ Easy Example: Global vs Local
+
+A variable inside a function does not affect the outside (Local Scope).
+
+```python
+x = 20 # Global
+def multiply(num):
+    x = 5 # Local (Valid only here)
+    return num * x
+
+print(multiply(10)) # Multiplies with Local x (5)
+print(x)            # Global x (20) did not change
+# Output:
+# 50
+# 20
+
+```
+
+### 🟡 Medium Example: LEGB Hierarchy
+
+Python looks for the variable from the inside out.
+
+```python
+my_string = "Global String"
+
+def outer():
+    my_string = "Enclosing String"
+
+    def inner():
+        my_string = "Local String"
+        print(my_string) # Finds the nearest one (Local)
+
+    inner()
+
+outer()
+# Output: Local String
+
+```
+
+### 🔴 Hard Example: The `global` Keyword
+
+Used to permanently change a global variable from within a function.
+
+```python
+y = 10
+
+def change_global():
+    global y  # Authorize to take outside y inside and change it
+    y = 5
+    print(f"Inside y: {y}")
+
+change_global()
+print(f"Outside y: {y}") # Now permanently changed
+# Output:
+# Inside y: 5
+# Outside y: 5
+
+```
+
+> 💡 Important Tip: Using the global keyword is generally not recommended because it makes variable tracking difficult in large projects. Update the value using return if possible.
+> 
+
+---
