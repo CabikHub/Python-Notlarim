@@ -1,4 +1,4 @@
-# Untitled
+# Hata Yönetici ve Tip Belirleme
 
 # 1. Hata Yönetimi (Error Handling) 🛡️
 
